@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #ffcad4;
+      padding: 1.5rem;
+      text-align: center;
+      color: #4a2c2a;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    form p {
+      margin: 1rem 0;
+      font-weight: bold;
+      color: #4a2c2a;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.8rem;
+      background: #ffcad4;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #4a2c2a;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #f5a6b8;
+    }
+
+    footer {
+      background: #ffcad4;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      color: #4a2c2a;
+    }
+
+    #message {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📞 Contact Details</h1>
+  </header>
+
+  <form id="contact-form">
+    <p>
+      Enter your Name:
+      <input type="text" name="name" id="name" required>
+    </p>
+    <p>
+      Enter your Email:
+      <input type="email" name="email" id="email" required>
+    </p>
+    <p>
+      Enter your Address:
+      <textarea name="address" id="address" cols="100" rows="4" required></textarea>
+    </p>
+    <p>
+      Enter your Mobile Number:
+      <input type="tel" name="number" id="number" required>
+    </p>
+    <button type="submit">Submit</button>
+    <p id="message"></p>
+  </form>
+
+  <footer>
+    <p>© 2026 Sweet Scoops Ice Cream Parlour | Made with ❤️</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const address = document.getElementById('address').value;
+      const number = document.getElementById('number').value;
+
+      // Save details in localStorage
+      const contactDetails = { name, email, address, number };
+      localStorage.setItem('contactDetails', JSON.stringify(contactDetails));
+
+      // Show success message
+      message.textContent = "✅ Your details have been saved successfully!";
+      
+      // Clear form
+      form.reset();
+    });
+  </script>
+</body>
+</html>

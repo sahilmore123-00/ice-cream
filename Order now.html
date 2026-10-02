@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Now - Sweet Scoops</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #ffcad4;
+      padding: 1.5rem;
+      text-align: center;
+      color: #4a2c2a;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .order-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .order-container h2 {
+      text-align: center;
+      color: #d45d79;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #4a2c2a;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.8rem;
+      background: #ffcad4;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #4a2c2a;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #f5a6b8;
+    }
+
+    .message {
+      margin-top: 1rem;
+      text-align: center;
+      font-weight: bold;
+      color: red;
+    }
+
+    footer {
+      background: #ffcad4;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      color: #4a2c2a;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📦 Place Your Order</h1>
+  </header>
+
+  <main>
+    <h2>Your Cart</h2>
+    <ul id="order-list"></ul>
+    <h3>Total: ₹<span id="order-total">0</span></h3>
+
+    <h2>Customer Details</h2>
+    <form id="order-form">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="address">Delivery Address:</label>
+      <textarea id="address" rows="3" required></textarea>
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" required>
+
+      <button type="submit">Confirm Order</button>
+    </form>
+
+    <p id="confirmation-message" style="color:green; font-weight:bold;"></p>
+    <button onclick="goBack()">⬅ Back to Menu</button>
+  </main>
+
+  <script>
+    const orderList = document.getElementById('order-list');
+    const orderTotal = document.getElementById('order-total');
+    const confirmationMessage = document.getElementById('confirmation-message');
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let total = 0;
+
+    // Render cart items
+    cart.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `${item.name} - ₹${item.price}`;
+      orderList.appendChild(li);
+      total += item.price;
+    });
+
+    orderTotal.textContent = total;
+
+    // Handle order form submission
+    document.getElementById('order-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const address = document.getElementById('address').value;
+      const phone = document.getElementById('phone').value;
+
+      confirmationMessage.textContent = 
+        `✅ Thank you, ${name}! Your order (₹${total}) will be delivered to "${address}". We’ll contact you at ${phone}.`;
+
+      // Clear cart after order
+      localStorage.removeItem('cart');
+    });
+
+    // Back to menu
+    function goBack() {
+      window.location.href = "menu.html";
+    }
+  </script>
+</body>
+</html>
+
+  
+  

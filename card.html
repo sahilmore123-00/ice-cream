@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🛒 Your Cart</h1>
+  </header>
+
+  <main>
+    <ul id="cart-list"></ul>
+    <h2>Total: ₹<span id="total-price">0</span></h2>
+    <button onclick="clearCart()">Clear Cart</button>
+    <button onclick="placeOrder()">Place Order</button>
+    <button onclick="goBack()">⬅ Back to Menu</button>
+  </main>
+
+  <script>
+    const cartList = document.getElementById('cart-list');
+    const totalPrice = document.getElementById('total-price');
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function renderCart() {
+      cartList.innerHTML = "";
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          ${item.name} - ₹${item.price}
+          <button onclick="removeItem(${index})">Remove</button>
+        `;
+        cartList.appendChild(li);
+        total += item.price;
+      });
+
+      totalPrice.textContent = total;
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function clearCart() {
+      cart = [];
+      localStorage.removeItem('cart');
+      renderCart();
+    }
+
+    function placeOrder() {
+      if (cart.length === 0) {
+        alert("Your cart is empty. Add items before placing an order!");
+        return;
+      }
+      // Redirect to order page
+      window.location.href = "Order now.html";
+    }
+
+    function goBack() {
+      window.location.href = "menu.html";
+    }
+
+    // Initial render
+    renderCart();
+  </script>
+</body>
+</html>
